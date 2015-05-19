@@ -66,8 +66,8 @@ end
 
 ## plugin configuration files
 # stomp connector
-case node['mcollective']['connector']:
-when 'activemq':
+case node['mcollective']['connector']
+when 'activemq'
   # activemq connector
   template "#{node['mcollective']['plugin_conf']}/activemq.cfg" do
     source "plugin-activemq.cfg.erb"
@@ -78,7 +78,7 @@ when 'activemq':
               :activemq => node['mcollective']['activemq']
   end
 
-when 'rabbitmq':
+when 'rabbitmq'
   # rabbitmq connector
   template "#{node['mcollective']['plugin_conf']}/rabbitmq.cfg" do
     source "plugin-rabbitmq.cfg.erb"
@@ -89,7 +89,7 @@ when 'rabbitmq':
               :rabbitmq => node['mcollective']['rabbitmq']
   end
 
-when 'redis':
+when 'redis'
   # redis connector
   gem_package "redis"
   remote_file "#{node['mcollective']['site_plugins']}/connector/redis.rb" do
