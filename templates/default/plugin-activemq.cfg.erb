@@ -1,7 +1,12 @@
-pool.size = 1
-pool.1.host = <%= @stomp['hostname'] %>
-pool.1.port = <%= @stomp['port'] %>
+pool.size = <%= @stomp['hosts'].length %>
+<% @stomp['hosts'].each_with_index do |hostname, index| -%>
+pool.<%= index+1 -%>.host = <%= hostname %>
+pool.<%= index+1 -%>.port = <%= @stomp['port'] %>
+pool.<%= index+1 -%>.user = <%= @stomp['username'] %>
+pool.<%= index+1 -%>.password = <%= @stomp['password'] %>
+<% end -%>
 
+heartbeat_interval = <%= @activemq['heartbeat_interval'] %>
 initial_reconnect_delay = 0.01
 max_reconnect_delay = 30.0
 use_exponential_back_off = true

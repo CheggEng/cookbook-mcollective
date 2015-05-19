@@ -66,36 +66,31 @@ end
 
 ## plugin configuration files
 # stomp connector
-template "#{node['mcollective']['plugin_conf']}/stomp.cfg" do
-  source "plugin-stomp.cfg.erb"
-  owner 'root'
-  group node['mcollective']['group']
-  mode '0640'
-  variables :stomp => node['mcollective']['stomp']
-end
+case node['mcollective']['connector']:
+when 'activemq':
+  # activemq connector
+  template "#{node['mcollective']['plugin_conf']}/activemq.cfg" do
+    source "plugin-activemq.cfg.erb"
+    owner 'root'
+    group node['mcollective']['group']
+    mode '0640'
+    variables :stomp => node['mcollective']['stomp'],
+              :activemq => node['mcollective']['activemq']
+  end
 
-# activemq connector
-template "#{node['mcollective']['plugin_conf']}/activemq.cfg" do
-  source "plugin-activemq.cfg.erb"
-  owner 'root'
-  group node['mcollective']['group']
-  mode '0640'
-  variables :stomp => node['mcollective']['stomp']
-end
+when 'rabbitmq':
+  # rabbitmq connector
+  template "#{node['mcollective']['plugin_conf']}/rabbitmq.cfg" do
+    source "plugin-rabbitmq.cfg.erb"
+    owner 'root'
+    group node['mcollective']['group']
+    mode '0640'
+    variables :stomp => node['mcollective']['stomp'],
+              :rabbitmq => node['mcollective']['rabbitmq']
+  end
 
-# rabbitmq connector
-template "#{node['mcollective']['plugin_conf']}/rabbitmq.cfg" do
-  source "plugin-rabbitmq.cfg.erb"
-  owner 'root'
-  group node['mcollective']['group']
-  mode '0640'
-  variables :stomp => node['mcollective']['stomp'],
-            :rabbitmq => node['mcollective']['rabbitmq']
-end
-
-# redis connector
-if node['mcollective']['connector'] == 'redis'
-  # install the connector
+when 'redis':
+  # redis connector
   gem_package "redis"
   remote_file "#{node['mcollective']['site_plugins']}/connector/redis.rb" do
     source "https://github.com/ripienaar/mc-plugins/raw/master/connector/redis/redis.rb"

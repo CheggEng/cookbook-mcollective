@@ -68,7 +68,7 @@ describe 'mcollective::common' do
     let(:chef_run) {
       chef_run = ChefSpec::Runner.new(:platform => 'redhat', :version => '6.3')
       chef_run.node.set['mcollective']['connector'] = 'activemq'
-      chef_run.node.set['mcollective']['stomp']['hostname'] = 'testhost'
+      chef_run.node.set['mcollective']['stomp']['hosts'] = ['testhost']
       chef_run.node.set['mcollective']['stomp']['port'] = '12345'
       chef_run.node.set['mcollective']['stomp']['username'] = 'testuser'
       chef_run.node.set['mcollective']['stomp']['password'] = 'testpass'
@@ -95,7 +95,7 @@ describe 'mcollective::common' do
     let(:chef_run) {
       chef_run = ChefSpec::Runner.new(:platform => 'redhat', :version => '6.3')
       chef_run.node.set['mcollective']['connector'] = 'rabbitmq'
-      chef_run.node.set['mcollective']['stomp']['hostname'] = 'testhost'
+      chef_run.node.set['mcollective']['stomp']['hosts'] = ['testhost']
       chef_run.node.set['mcollective']['stomp']['port'] = '12345'
       chef_run.node.set['mcollective']['stomp']['username'] = 'testuser'
       chef_run.node.set['mcollective']['stomp']['password'] = 'testpass'

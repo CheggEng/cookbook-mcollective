@@ -2,12 +2,27 @@
 topicprefix = /topic/
 <%- end %>
 main_collective = <%= @config['main_collective'] %>
-collectives = <%= @config['collectives'] %>
+collectives = <%= @config['collectives'].join(',') %>
 direct_addressing = <%= @config['direct_addressing'] %>
 identity = <%= @config['identity'] %>
 libdir = <%= @site_plugins %>:<%= @config['libdir'] %>
-logfile = <%= @config['logfile'] %>
+
+# Logging
+logger_type = <%= @config['logger_type'] %>
 loglevel = <%= @config['loglevel'] %>
+<% if( @config['logger_type'] == 'syslog' ) then -%>
+logfacility = <%= @config['syslog_facility'] %>
+<% end -%>
+<% if( @config['logger_type'] == 'file' ) then -%>
+logfile = <%= @config['logfile'] %>
+<% if( @config['keeplogs'] ) then -%>
+keeplogs = <%= @config['keeplogs'] %>
+<% end -%>
+<% if( @config['max_log_size'] ) then -%>
+max_log_size = <%= @config['max_log_size'] %>
+<% end -%>
+<% end -%>
+
 daemonize = 1
 
 # Plugins
@@ -18,11 +33,6 @@ plugin.psk.callertype = <%= @config['psk_callertype'] %>
 <%- end %>
 
 connector = <%= @config['connector'] %>
-<%- if ['activemq','rabbitmq'].include?(@config['connector']) %>
-plugin.<%= @config['connector'] %>.pool.1.user = <%= @config['stomp']['username'] %>
-plugin.<%= @config['connector'] %>.pool.1.password = <%= @config['stomp']['password'] %>
-<%- end %>
-
 
 # Facts
 <% if @config['factsource'] == 'ohai' %>

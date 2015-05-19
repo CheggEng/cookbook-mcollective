@@ -49,17 +49,21 @@ default['mcollective']['connector']         = "activemq"
 # (see the MCollective documentation)
 default['mcollective']['direct_addressing'] = "y"
 
-# RabbitMQ details (used by rabbitmq connector)
-default['mcollective']['rabbitmq']['vhost'] = "/"
-
 # MCollective Identity and collective membership
 default['mcollective']['identity']        = node['fqdn']
 default['mcollective']['main_collective'] = "mcollective"
-default['mcollective']['collectives']     = "mcollective"
+default['mcollective']['collectives']     = [
+    'mcollective'
+]
 
 # Logging
+# types are 'file' or 'syslog'
+default['mcollective']['logger_type'] = "file"
+default['mcollective']['syslog_facility'] = "daemon"
 default['mcollective']['logfile'] = "/var/log/mcollective.log"
 default['mcollective']['loglevel'] = "info"
+default['mcollective']['keeplogs'] = 5
+default['mcollective']['max_log_size'] = nil
 
 # Locations
 default['mcollective']['site_plugins'] = "/etc/mcollective/site_plugins/mcollective"
@@ -76,7 +80,7 @@ default['mcollective']['plugin_conf'] = "/etc/mcollective/plugin.d"
 default['mcollective']['factsource']    = 'yaml'
 default['mcollective']['yaml_factfile'] = '/etc/mcollective/facts.yaml'
 
-default['mcollective']['classesfile']   = '/var/tmp/chefnode.txt'
+default['mcollective']['classesfile']   = '/var/chef/cache/chef_recipes.txt'
 
 # Ohai keys to include in the YAML fact list.
 default['mcollective']['fact_whitelist'] = [
@@ -94,7 +98,6 @@ default['mcollective']['fact_whitelist'] = [
                                             'uptime_seconds',
                                             'chef_packages',
                                             'keys',
-                                            'instmaint',
                                             'virtualization',
                                             'cpu',
                                             'memory'
