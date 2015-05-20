@@ -12,8 +12,7 @@ logger_type = <%= @config['server']['logger_type'] %>
 loglevel = <%= @config['server']['loglevel'] %>
 <% if( @config['server']['logger_type'] == 'syslog' ) then -%>
 logfacility = <%= @config['server']['syslog_facility'] %>
-<% end -%>
-<% if( @config['server']['logger_type'] == 'file' ) then -%>
+<% elsif( @config['server']['logger_type'] == 'file' ) then -%>
 logfile = <%= @config['server']['logfile'] %>
 <% if( @config['server']['keeplogs'] ) then -%>
 keeplogs = <%= @config['server']['keeplogs'] %>

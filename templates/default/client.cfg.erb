@@ -12,10 +12,8 @@ logger_type = <%= @config['client']['logger_type'] %>
 loglevel = <%= @config['client']['loglevel'] %>
 <% if( @config['client']['logger_type'] == 'syslog' ) then -%>
 logfacility = <%= @config['client']['syslog_facility'] %>
-<% end -%>
-<% if( @config['client']['logger_type'] == 'file' ) then -%>
+<% elsif( @config['client']['logger_type'] == 'file' ) then -%>
 logfile = <%= @config['client']['logfile'] %>
-<% end -%>
 <% end -%>
 
 # Plugins
