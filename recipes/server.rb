@@ -22,26 +22,13 @@ include_recipe "mcollective::common"
 # Install server components
 include_recipe node['mcollective']['recipes']['install_server']
 
-service "mcollective" do
-  supports :restart => true, :status => true
-  action [:enable, :start]
-end
-
-# Restart mcollective if the chef agent changes
-if node['mcollective']['install_chef_agent?']
-  ['rb', 'ddl'].each do |ext|
-    r = resources("cookbook_file[#{node['mcollective']['site_plugins']}/agent/chef.#{ext}]")
-    r.notifies :restart, "service[mcollective]"
-  end
-end
-
 # The libdir paths in the MC configuration need to omit the
 # trailing "/mcollective"
 site_libdir = node['mcollective']['site_plugins'].sub(/\/mcollective$/, '')
 template "/etc/mcollective/server.cfg" do
   source "server.cfg.erb"
   mode 0600
-  notifies :restart, 'service[mcollective]'
+  notifies :restart, 'service[mcollective]', :delayed
   variables :site_plugins => site_libdir,
             :config       => node['mcollective']
 end
@@ -65,4 +52,14 @@ if node['mcollective']['install_chef_handler?']
     supports :report => true, :exception => false
     action :enable
   end
+end
+
+service "mcollective" do
+  supports :restart => true, :status => true
+  # Restart mcollective if the chef agent changes
+  if node['mcollective']['install_chef_agent?']
+    subscribes :restart, "cookbook_file[#{node['mcollective']['site_plugins']}/agent/chef.rb", :delayed
+    subscribes :restart, "cookbook_file[#{node['mcollective']['site_plugins']}/agent/chef.ddl", :delayed
+  end
+  action [:enable, :start]
 end
