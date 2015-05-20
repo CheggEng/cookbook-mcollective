@@ -25,7 +25,7 @@ include_recipe node['mcollective']['recipes']['install_common']
 group node['mcollective']['group'] do
   members node['mcollective']['users']
   action :create
-  only_if node['mcollective']['create_group?']
+  only_if { node['mcollective']['create_group?'] }
 end
 
 # directories for unpackaged plugins (extra mcollective libdir)
