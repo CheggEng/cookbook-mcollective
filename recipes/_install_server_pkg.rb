@@ -21,4 +21,5 @@
 package "mcollective" do
   action :install
   version node['mcollective']['package']['version']
+  options node['mcollective']['package']['options']
 end

@@ -51,26 +51,30 @@ when "rhel"
     yum_cookbook_3 = true
   end
 
-  # on amazon linux, $releasever is "latest", which the repo doesn't support
-  if platform?("amazon")
-    release = "6Server"
+  # on amazon linux, $releasever is "latest" or a date, which the repo doesn't support
+  if platform?('amazon')
+    release = '6'
   else
-    release = "$releasever"
+    release = '$releasever'
   end
 
   yum_repository "puppetlabs" do
     name "puppetlabs"
     description "Puppet Labs Packages"
-    url "http://yum.puppetlabs.com/el/#{release}/products/$basearch"
+    baseurl "http://yum.puppetlabs.com/el/#{release}/products/$basearch"
+    gpgcheck true
     gpgkey "http://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs" if yum_cookbook_3
+    enabled node['mcollective']['enable_puppetlabs_repo']
     action :add
   end
 
   yum_repository "puppetlabs-deps" do
     name "puppetlabs-deps"
     description "Dependencies for Puppet Labs Software"
-    url "http://yum.puppetlabs.com/el/#{release}/dependencies/$basearch"
+    baseurl "http://yum.puppetlabs.com/el/#{release}/dependencies/$basearch"
+    gpgcheck true
     gpgkey "http://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs" if yum_cookbook_3
+    enabled node['mcollective']['enable_puppetlabs_repo']
     action :add
   end
 when "fedora"
@@ -87,15 +91,19 @@ when "fedora"
   yum_repository "puppetlabs" do
     name "puppetlabs"
     description "Puppet Labs Packages"
-    url "http://yum.puppetlabs.com/fedora/f$releasever/products/$basearch"
+    baseurl "http://yum.puppetlabs.com/fedora/f$releasever/products/$basearch"
+    gpgcheck true
     gpgkey "http://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs" if yum_cookbook_3
+    enabled node['mcollective']['enable_puppetlabs_repo']
     action :add
   end
   yum_repository "puppetlabs-deps" do
     name "puppetlabs-deps"
     description "Dependencies for Puppet Labs Software"
-    url "http://yum.puppetlabs.com/fedora/$releasever/dependencies/$basearch"
+    baseurl "http://yum.puppetlabs.com/fedora/$releasever/dependencies/$basearch"
+    gpgcheck true
     gpgkey "http://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs" if yum_cookbook_3
+    enabled node['mcollective']['enable_puppetlabs_repo']
     action :add
   end
 end

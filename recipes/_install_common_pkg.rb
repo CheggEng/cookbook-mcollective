@@ -18,7 +18,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-if node['mcollective']['enable_puppetlabs_repo']
+if node['mcollective']['add_puppetlabs_repo'] || node['mcollective']['enable_puppetlabs_repo']
   include_recipe 'mcollective::puppetlabs-repo'
 end
 
@@ -32,6 +32,7 @@ package "rubygem-stomp" do
     package_name "libstomp-ruby"
   when "rhel","fedora"
     package_name "rubygem-stomp"
+    options node['mcollective']['package']['options']
   end
   action :install
 end
@@ -39,4 +40,5 @@ end
 package "mcollective-common" do
   action :install
   version node['mcollective']['package']['version']
+  options node['mcollective']['package']['options']
 end
