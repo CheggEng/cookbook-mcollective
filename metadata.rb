@@ -3,7 +3,7 @@ maintainer_email "zts@cryptocracy.com"
 license          "Apache v2.0"
 name             "mcollective"
 description      "Provides the MCollective orchestration framework."
-version          "0.16.6"
+version          "0.16.7"
 
 %w{ debian ubuntu redhat centos amazon fedora scientific}.each do |os|
   supports os

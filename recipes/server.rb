@@ -54,6 +54,14 @@ if node['mcollective']['install_chef_handler?']
   end
 end
 
+# install chef agent
+cookbook_file "#{node['mcollective']['site_plugins']}/agent/chef.rb" do
+  source "plugins/agent/chef.rb"
+  mode '0644'
+  notifies :restart, "service[mcollective]", :delayed
+  only_if { node['mcollective']['install_chef_agent?'] }
+end
+
 service "mcollective" do
   supports :restart => true, :status => true
   # Restart mcollective if the chef agent changes

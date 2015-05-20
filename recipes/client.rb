@@ -34,3 +34,10 @@ template "/etc/mcollective/client.cfg" do
   variables :site_plugins => site_libdir,
             :config       => node['mcollective']
 end
+
+# mco client application
+cookbook_file "#{node['mcollective']['site_plugins']}/application/chef.rb" do
+  source "plugins/application/chef.rb"
+  mode '0644'
+  only_if { node['mcollective']['install_chef_application?'] }
+end

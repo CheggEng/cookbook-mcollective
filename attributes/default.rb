@@ -27,6 +27,7 @@ default['mcollective']['users'] = []
 # this functionality, or are installing it another way.
 default['mcollective']['install_chef_agent?'] = true
 default['mcollective']['install_chef_handler?'] = true
+default['mcollective']['install_chef_application?'] = true
 
 # Name of the mcollective group
 default['mcollective']['group'] = 'mcollective'
