@@ -8,18 +8,18 @@ identity = <%= @config['identity'] %>
 libdir = <%= @site_plugins %>:<%= @config['libdir'] %>
 
 # Logging
-logger_type = <%= @config['logger_type'] %>
-loglevel = <%= @config['loglevel'] %>
-<% if( @config['logger_type'] == 'syslog' ) then -%>
-logfacility = <%= @config['syslog_facility'] %>
+logger_type = <%= @config['server']['logger_type'] %>
+loglevel = <%= @config['server']['loglevel'] %>
+<% if( @config['server']['logger_type'] == 'syslog' ) then -%>
+logfacility = <%= @config['server']['syslog_facility'] %>
 <% end -%>
-<% if( @config['logger_type'] == 'file' ) then -%>
-logfile = <%= @config['logfile'] %>
-<% if( @config['keeplogs'] ) then -%>
-keeplogs = <%= @config['keeplogs'] %>
+<% if( @config['server']['logger_type'] == 'file' ) then -%>
+logfile = <%= @config['server']['logfile'] %>
+<% if( @config['server']['keeplogs'] ) then -%>
+keeplogs = <%= @config['server']['keeplogs'] %>
 <% end -%>
-<% if( @config['max_log_size'] ) then -%>
-max_log_size = <%= @config['max_log_size'] %>
+<% if( @config['server']['max_log_size'] ) then -%>
+max_log_size = <%= @config['server']['max_log_size'] %>
 <% end -%>
 <% end -%>
 

@@ -6,8 +6,17 @@ collectives = <%= @config['collectives'].join(',') %>
 direct_addressing = <%= @config['direct_addressing'] %>
 identity = <%= @config['identity'] %>
 libdir = <%= @site_plugins %>:<%= @config['libdir'] %>
-logfile = /dev/null
-loglevel = info
+
+# Logging
+logger_type = <%= @config['client']['logger_type'] %>
+loglevel = <%= @config['client']['loglevel'] %>
+<% if( @config['client']['logger_type'] == 'syslog' ) then -%>
+logfacility = <%= @config['client']['syslog_facility'] %>
+<% end -%>
+<% if( @config['client']['logger_type'] == 'file' ) then -%>
+logfile = <%= @config['client']['logfile'] %>
+<% end -%>
+<% end -%>
 
 # Plugins
 securityprovider = <%= @config['securityprovider'] %>

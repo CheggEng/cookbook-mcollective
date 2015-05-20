@@ -60,12 +60,14 @@ default['mcollective']['collectives']     = [
 
 # Logging
 # types are 'file' or 'syslog'
-default['mcollective']['logger_type'] = "file"
-default['mcollective']['syslog_facility'] = "daemon"
-default['mcollective']['logfile'] = "/var/log/mcollective.log"
-default['mcollective']['loglevel'] = "info"
-default['mcollective']['keeplogs'] = 5
-default['mcollective']['max_log_size'] = nil
+default['mcollective']['server']['logger_type'] = "file"
+default['mcollective']['server']['syslog_facility'] = "daemon"
+default['mcollective']['server']['logfile'] = "/var/log/mcollective.log"
+default['mcollective']['server']['loglevel'] = "info"
+default['mcollective']['server']['keeplogs'] = 5
+default['mcollective']['server']['max_log_size'] = nil
+default['mcollective']['client']['logger_type'] = "console"
+default['mcollective']['client']['loglevel'] = "info"
 
 # Locations
 default['mcollective']['site_plugins'] = "/etc/mcollective/site_plugins/mcollective"
