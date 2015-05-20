@@ -125,5 +125,7 @@ default['mcollective']['enable_puppetlabs_repo'] = false
 
 # Set package options to enable puppet repo
 if node['platform_family'] == 'rhel' && node['mcollective']['add_puppetlabs_repo']
-  default['mcollective']['package']['options'] = '--enablerepo=puppetlabs --enablerepo=puppetlabs-deps'
+  default['mcollective']['package']['options'] = '--assumeyes --enablerepo=puppetlabs --enablerepo=puppetlabs-deps'
+else
+  default['mcollective']['package']['options'] = '--assumeyes'
 end
