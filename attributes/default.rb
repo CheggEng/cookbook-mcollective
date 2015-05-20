@@ -31,6 +31,7 @@ default['mcollective']['install_chef_application?'] = true
 
 # Name of the mcollective group
 default['mcollective']['group'] = 'mcollective'
+default['mcollective']['create_group?'] = true
 
 # Specify a version to install, or leave nil for latest
 default['mcollective']['package']['version'] = nil
