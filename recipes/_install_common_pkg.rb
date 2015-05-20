@@ -42,3 +42,16 @@ package "mcollective-common" do
   version node['mcollective']['package']['version']
   options node['mcollective']['package']['options']
 end
+
+if node['platform'] == 'amazon'
+  link '/usr/local/share/ruby/site_ruby/2.0/mcollective' do
+    to '/usr/lib/ruby/site_ruby/1.8/mcollective'
+  end
+  link '/usr/local/share/ruby/site_ruby/2.0/mcollective.rb' do
+    to '/usr/lib/ruby/site_ruby/1.8/mcollective.rb'
+  end
+  gem_package 'stomp' do
+    action  :install
+    version node['mcollective']['stomp_gem']['version']
+  end
+end

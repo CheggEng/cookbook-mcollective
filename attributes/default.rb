@@ -33,6 +33,7 @@ default['mcollective']['group'] = 'mcollective'
 
 # Specify a version to install, or leave nil for latest
 default['mcollective']['package']['version'] = nil
+default['mcollective']['stomp_gem']['version'] = nil
 
 # Security provider plugin - psk/ssl/aes_security
 default['mcollective']['securityprovider'] = "psk"

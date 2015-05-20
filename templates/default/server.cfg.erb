@@ -33,6 +33,11 @@ plugin.psk.callertype = <%= @config['psk_callertype'] %>
 <%- end %>
 
 connector = <%= @config['connector'] %>
+<% if ['activemq','rabbitmq'].include?(@config['connector'])
+   @config['stomp']['hosts'].each_with_index do |hostname, index| -%>
+plugin.<%= @config['connector'] %>.pool.<%= index+1 -%>.user = <%= @config['stomp']['password'] %>
+plugin.<%= @config['connector'] %>.pool.<%= index+1 -%>.password = <%= @config['stomp']['password'] %>
+<% end end -%>
 
 # Facts
 <% if @config['factsource'] == 'ohai' %>

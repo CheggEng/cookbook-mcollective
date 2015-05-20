@@ -2,8 +2,6 @@ pool.size = <%= @stomp['hosts'].length %>
 <% @stomp['hosts'].each_with_index do |hostname, index| -%>
 pool.<%= index+1 -%>.host = <%= hostname %>
 pool.<%= index+1 -%>.port = <%= @stomp['port'] %>
-pool.<%= index+1 -%>.user = <%= @stomp['username'] %>
-pool.<%= index+1 -%>.password = <%= @stomp['password'] %>
 <% end -%>
 
 heartbeat_interval = <%= @activemq['heartbeat_interval'] %>
