@@ -65,6 +65,7 @@ when 'activemq'
     mode '0640'
     variables :stomp => node['mcollective']['stomp'],
               :activemq => node['mcollective']['activemq']
+    notifies :restart, 'service[mcollective]', :delayed
   end
 
 when 'rabbitmq'
@@ -76,6 +77,7 @@ when 'rabbitmq'
     mode '0640'
     variables :stomp => node['mcollective']['stomp'],
               :rabbitmq => node['mcollective']['rabbitmq']
+    notifies :restart, 'service[mcollective]', :delayed
   end
 
 when 'redis'
@@ -93,5 +95,6 @@ when 'redis'
     group node['mcollective']['group']
     mode '0640'
     variables :redis => node['mcollective']['redis']
+    notifies :restart, 'service[mcollective]', :delayed
   end
 end
