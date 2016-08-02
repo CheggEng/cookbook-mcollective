@@ -37,8 +37,6 @@ package "rubygem-stomp" do
   action :install
 end
 
-pp node['mcollective']
-
 package "mcollective-common" do
   action :install
   version node['mcollective']['package']['version']
